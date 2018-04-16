@@ -1,2 +1,9 @@
 language: node_js
 node_js: node
+deploy:
+  provider: heroku
+  api_key:
+    secure: 2CjjM77tHgrKn4dzd0ILuK0LWc6A/mjGx3bxfgM4OY6pfHXIpuDzl6Sqr2lpaf8rvBJ68gDK932PXhmkVoZ9U400NK4io/StJ6I46yZ1G1KbDwdmwQ/Qf3nPJAQwzLgWgI3UMZSLuoiLz0VFd56evu081xan0/PLn6oTN0cXPcn/ValDOibMN1/Nl46+4KZCQXp3EiUjkP3CUM12dNJidMR+O9srFJWmwurB0MMx+E6ckRmfSF7Y4vrEO98pY8F5RdhDqfpjzZM+TCaOPcIeCUE9NAmG3fp2b2TF/5GAzKVHWmjtk3ahmKmLktwoPtI7Hs3bku2KRDL4WkUjiUffRgtfWAYB3VayvOMzHnzfreK2knjtlexj/kRYNxvgpHIXzkJ6XvwOpnZyldZthsVoqPr8HnWUeG8H3GmTsQ6prKZ/bcMQp4iLQe0J3WzURcuauBEDvt9Dr8vwH8Nz49lFmBQBOb6IG6x/7qasEx+geRMhxmcWBVTVf9xoQce/ttwQPowcTVcBxpBhB/RebSYIPLhrP5PLqk8S7Zy95MHm29X15aWu5uPPMeiWMiSN64Ibk8Y6UYEzg0kJp7Z+zOaw6zm++4ZjS1FIc722ynfVMTu14xb69fNnfZVG1rHU5u4py/tJzQWsHtdBFKRswx9Y5QB4qok0jTuU1Koz4AlSZlc=
+  app: 'salty-everglades-20769'
+  on:
+    repo: BryanNeuberger/node-shopping-list-integration-tests
