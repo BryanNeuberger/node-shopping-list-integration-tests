@@ -141,4 +141,103 @@ describe('Shopping List', function() {
         expect(res).to.have.status(204);
       });
   });
+
+
+
+
+
+
+
+
+   /////////////
+  // RECIPES //
+ /////////////
+
+
+ //GET
+ it('should list recipes on GET req to /recipes', function() {
+  return chai.request(app)
+  .get('/recipes')
+  .then(function(res) {
+    expect(res).to.have.status(200);
+    expect(res).to.be.json;
+    expect(res.body).to.be.a('array');
+    expect(res.body.length).to.be.at.least(1);
+    const expectedKeys = ['id', 'name', 'ingredients'];
+    res.body.forEach(function(item) {
+      expect(item).to.be.a('object');
+      expect(item).to.include.keys(expectedKeys);
+    });
+  })
+ });
+
+
+//POST
+it('should add an Recipe on POST req to /recipes', function() {
+    const newItem = {name: 'recTest', ingredients: ['test', 'test1', 'test3']};
+    return chai.request(app)
+      .post('/recipes')
+      .send(newItem)
+      .then(function(res) {
+        expect(res).to.have.status(201);
+        expect(res).to.be.json;
+        expect(res.body).to.be.a('object');
+        expect(res.body).to.include.keys('id', 'name', 'ingredients');
+        expect(res.body.id).to.not.equal(null);
+        // response should be deep equal to `newItem` from above if we assign
+        // `id` to it from `res.body.id`
+        expect(res.body).to.deep.equal(Object.assign(newItem, {id: res.body.id}));
+      });
+  });
+
+//PUT
+it('should update items on PUT req to /recipes', function() {
+    const updateData = {
+      name: 'foo',
+      ingredients: ['bizz', 'bang']
+    };
+
+    return chai.request(app)
+      // first have to get recipes so have `id` for one we
+      // want to update. Note that once we're working with databases later
+      // in this course get the `id` of an existing instance from the database,
+      // which will allow us to isolate the PUT logic under test from our
+      // GET interface.
+      .get('/recipes')
+      .then(function(res) {
+        updateData.id = res.body[0].id;
+
+        return chai.request(app)
+          .put(`/recipes/${updateData.id}`)
+          .send(updateData)
+      })
+      .then(function(res) {
+        expect(res).to.have.status(204);
+      });
+  });
+
+//DELETE
+it('should delete recipes on DELETE req to /recipes', function() {
+    return chai.request(app)
+      .get('/recipes')
+      .then(function(res) {
+        return chai.request(app)
+          .delete(`/recipes/${res.body[0].id}`)
+      })
+      .then(function(res) {
+        expect(res).to.have.status(204);
+      });
+  });
+
+
+
+
+
+
+
+
+
+
+
+
 });
